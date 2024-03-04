@@ -10,7 +10,6 @@ public interface CalculationPerimeterAndArea {
         }
     }
 
-    //double calcAreaCircle(double r);
     double calcArea(double... args);
 
     default double calcPerimeterRectangle(double len, double wid) {
@@ -21,8 +20,6 @@ public interface CalculationPerimeterAndArea {
         }
     }
 
-    //double calcAreaRectangle(double len, double wid);
-
     default double calcPerimeterTriangle(double lenA, double lenB, double lenC) {
         if (lenA > 0.0 && lenB > 0.0 && lenC > 0.0) {
             return lenA + lenB + lenC;
@@ -30,6 +27,4 @@ public interface CalculationPerimeterAndArea {
             throw new IllegalArgumentException("Стороны треугольника не могут быть отрицательными или нулевыми.");
         }
     }
-
-    //double calcAreaTriangle(double lenA, double lenB, double lenC);
 }
