@@ -31,9 +31,14 @@ public class App {
             System.out.println("\n" + "// 3.");
 
             System.out.println(positiveNegativeBoolean(value));
+        }
 
+        {
             // 4.
             System.out.println("\n" + "// 4.");
+            int[] numbers = {0, 1, 2, 3};
+            int index = (int) (Math.random() * numbers.length);
+            int value = numbers[index];
 
             printString("I'm a string! ", value);
         }
@@ -121,13 +126,13 @@ public class App {
 
     // 3.
     public static boolean positiveNegativeBoolean(int value) {
-        return value >= 0;
+        return value < 0;
     }
 
     // 4.
     public static void printString(String line, int value) {
-        int a = -2;
-        while (a <= value) {
+        int a = 0;
+        while (a < value) {
             System.out.println(line);
             a++;
         }
