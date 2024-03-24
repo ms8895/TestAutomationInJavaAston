@@ -13,9 +13,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
-      <java.version>11.0.19-zulu</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <java.version>11.0.19-zulu</java.version>
     </properties>
 
     <dependencies>
@@ -25,6 +25,14 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.21.0</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
