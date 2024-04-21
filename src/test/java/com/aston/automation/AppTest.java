@@ -1,20 +1,28 @@
 package com.aston.automation;
 
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest
-{
-    /**
-     * Rigorous Test :-)
-     */
+public class AppTest {
+
     @Test
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue( true );
+    public void factorialIsGreaterThanOneTest() {
+        assertEquals(3628800, App.getFactorial(10));
+    }
+
+    @Test
+    public void factorialOfZeroTest() {
+        assertEquals(1, App.getFactorial(0));
+    }
+
+    @Test
+    public void factorialOfOneTest() {
+        assertEquals(1, App.getFactorial(1));
+    }
+
+    @Test
+    public void factorialIsLessThanZeroTest() {
+        assertEquals(0, App.getFactorial(-1));
     }
 }
