@@ -20,12 +20,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.10.2</version>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.10.1</version>
             <scope>test</scope>
         </dependency>
-
 
         <dependency>
             <groupId>org.assertj</groupId>
@@ -33,6 +32,15 @@
             <version>3.21.0</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Logback implementation -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version> <!-- Используйте совместимую версию -->
+        </dependency>
+
+
 
     </dependencies>
 
