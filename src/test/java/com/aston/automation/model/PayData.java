@@ -1,19 +1,23 @@
-package com.aston.automation;
+package com.aston.automation.model;
 
 public class PayData {
     private String typeService;
 
     private String numberPhone;
 
-    private String replenishmentAmount;
+    private String amount;
 
     private String email;
 
-    public PayData(String typeService, String numberPhone, String replenishmentAmount, String email) {
+    public PayData(String typeService, String numberPhone, String amount, String email) {
         this.typeService = typeService;
         this.numberPhone = numberPhone;
-        this.replenishmentAmount = replenishmentAmount;
+        this.amount = amount;
         this.email = email;
+    }
+
+    public PayData(String typeService) {
+        this.typeService = typeService;
     }
 
     public String getTypeService() {
@@ -24,8 +28,8 @@ public class PayData {
         return numberPhone;
     }
 
-    public String getReplenishmentAmount() {
-        return replenishmentAmount;
+    public String getAmount() {
+        return amount;
     }
 
     public String getEmail() {
@@ -40,8 +44,8 @@ public class PayData {
         this.numberPhone = numberPhone;
     }
 
-    public void setReplenishmentAmount(String replenishmentAmount) {
-        this.replenishmentAmount = replenishmentAmount;
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 
     public void setEmail(String email) {

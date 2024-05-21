@@ -1,5 +1,7 @@
-package com.aston.automation;
+package com.aston.automation.tests;
 
+import com.aston.automation.model.FormsOfPaymentData;
+import com.aston.automation.model.PayData;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,6 +20,7 @@ public class TestBase {
 
     private final String onlineReplenishment = "//h2[contains(text(),'Онлайн пополнение')]";
 
+
     public String getOnlineReplenishment() {
         return onlineReplenishment;
     }
@@ -25,7 +28,6 @@ public class TestBase {
     @BeforeAll
     static void setupClass() {
         WebDriverManager.chromedriver().setup();
-
     }
 
     @BeforeEach
@@ -81,35 +83,84 @@ public class TestBase {
         }
     }
 
-    public void selectTypeServiceInList(PayData payData) {
+    public void selectTypeService(String service) {
         WebElement dropdownValueElement = findElement(By.xpath("//div[@class='pay__form']//button[@class='select__header']/span[@class='select__now']"));
         String currentDropdownValue = dropdownValueElement.getText().trim();
 
-        if (!currentDropdownValue.equals(payData.getTypeService())) {
+        if (!currentDropdownValue.equals(service)) {
             click(By.xpath("//div[@class='pay__form']//button[@class='select__header']"));
 
-            click(By.xpath("//div[@class='pay__form']//ul[@class='select__list']//p[text()='" + payData.getTypeService() + "']"));
+            click(By.xpath("//div[@class='pay__form']//ul[@class='select__list']//p[text()='" + service + "']"));
         }
     }
 
-    public void fillOnlineBlock(PayData payData) {
-        selectTypeServiceInList(payData);
+    public void fillFieldsCommunicationService(PayData payData) {
+        selectTypeService(payData.getTypeService());
 
         type(By.id("connection-phone"), payData.getNumberPhone());
-        type(By.id("connection-sum"), payData.getReplenishmentAmount());
+        type(By.id("connection-sum"), payData.getAmount());
         type(By.id("connection-email"), payData.getEmail());
     }
 
     public WebElement submitData(PayData payData) {
-        fillOnlineBlock(payData);
+        fillFieldsCommunicationService(payData);
         click(By.xpath("//*[@id='pay-connection']/button"));
 
         WebDriverWait wait = new WebDriverWait(wd, Duration.ofSeconds(5));
         try {
             wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//*[@class='bepaid-iframe']")));
         } catch (TimeoutException e) {
-            System.out.println(e);
+            System.out.println("Время ожидания формы оплаты: " + e.getMessage());
         }
-        return wd.findElement(By.xpath("//*[@aria-label='Google Pay']"));
+
+        try {
+            return wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@class='header__close-icon']")));
+        } catch (TimeoutException e) {
+            System.out.println("Время ожидания кнопки закрыть: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public Result getResult(String serviceForm) {
+        PayData payData = new PayData(serviceForm);
+
+        selectTypeService(payData.getTypeService());
+
+        FormsOfPaymentData formsOfPaymentData = new FormsOfPaymentData();
+
+        WebElement element = findElement(By.xpath(formsOfPaymentData.getButtonContinue()));
+        boolean isClickable = element.isEnabled();
+        Result result = new Result(formsOfPaymentData, isClickable);
+        return result;
+    }
+
+    protected static class Result {
+        public final FormsOfPaymentData formsOfPaymentData;
+        public final boolean isClickable;
+
+        public Result(FormsOfPaymentData formsOfPaymentData, boolean isClickable) {
+            this.formsOfPaymentData = formsOfPaymentData;
+            this.isClickable = isClickable;
+        }
+    }
+
+    public boolean isFormOpened(PayData payData) {
+        try {
+            WebElement element = submitData(payData);
+            return element != null && element.isDisplayed();
+        } catch (Exception e) {
+            System.out.println("Error opening form: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean elementIsClickable(String locator) {
+        try {
+            WebDriverWait wait = new WebDriverWait(wd, Duration.ofSeconds(2));
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 }

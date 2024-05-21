@@ -1,5 +1,6 @@
-package com.aston.automation;
+package com.aston.automation.tests;
 
+import com.aston.automation.model.PayData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
