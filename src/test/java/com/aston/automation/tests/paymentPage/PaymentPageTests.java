@@ -55,7 +55,7 @@ public class PaymentPageTests extends TestBase {
 
     @Test
     public void shouldDisplayPlaceholderForCardNumberField() {
-        WebElement cardNumber = findElement(By.xpath(payDescriptionData.getСardNumber()));
+        WebElement cardNumber = findElement(By.xpath(payDescriptionData.getCardNumber()));
         assertEquals("Номер карты", cardNumber.getText());
     }
 

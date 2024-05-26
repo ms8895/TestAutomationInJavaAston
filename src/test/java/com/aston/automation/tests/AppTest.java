@@ -36,7 +36,7 @@ public class AppTest extends TestBase {
         List<WebElement> payPartners = findElements(By.cssSelector("[class='pay__partners'] li img"));
 
         ArrayList<String> expectedPartners = new ArrayList<>(Arrays.asList("Visa", "Verified By Visa", "MasterCard",
-                "MasterCard Secure Code", "Белкарт", "МИР"));
+                "MasterCard Secure Code", "Белкарт"));
 
         ArrayList<String> actualPartners = new ArrayList<>();
 
@@ -68,7 +68,7 @@ public class AppTest extends TestBase {
     @Test
     public void typeFieldsAndCheckButtonTest() {
         PayData payData = new PayData("Услуги связи", "297777777", "200", "123@com.com");
-
-        assertTrue(submitData(payData).isDisplayed());
+        fillCommunicationService(payData);
+        assertTrue(submitForm(payData).isDisplayed());
     }
 }

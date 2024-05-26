@@ -2,17 +2,15 @@ package com.aston.automation.model;
 
 public class FormsOfPaymentData {
 
-    private final String buttonContinue = "//*[@class='pay-form opened']//button[text()='Продолжить']";
-
-    public String getButtonContinue() {
-        return buttonContinue;
+    public String getButtonContinue(String formName) {
+        return String.format("//form[@id='%s']//button[@type='submit']", formName);
     }
 
     // Поля формы "Услуги связи" (Communication services)
 
-    private final String phoneNumberCS = "//*[@class='pay-form opened']/div/input[@id='connection-phone']";
-    private final String sumCS = "//*[@class='pay-form opened']/div/input[@id='connection-sum']";
-    private final String emailCS = "//*[@class='pay-form opened']/div/input[@id='connection-email']";
+    private final String phoneNumberCS = "//*[@id='connection-phone']";
+    private final String sumCS = "//*[@id='connection-sum']";
+    private final String emailCS = "//*[@id='connection-email']";
 
     public String getPhoneNumberCS() {
         return phoneNumberCS;
@@ -28,9 +26,9 @@ public class FormsOfPaymentData {
 
     // Поля формы "Домашний интернет" (Home Internet)
 
-    private final String subscriberNumberHI = "//*[@class='pay-form opened']/div/input[@id='internet-phone']";
-    private final String sumHI = "//*[@class='pay-form opened']/div/input[@id='internet-sum']";
-    private final String emailHI = "//*[@class='pay-form opened']/div/input[@id='internet-email']";
+    private final String subscriberNumberHI = "//*[@id='internet-phone']";
+    private final String sumHI = "//*[@id='internet-sum']";
+    private final String emailHI = "//*[@id='internet-email']";
 
     public String getSubscriberNumberHI() {
         return subscriberNumberHI;
@@ -46,12 +44,12 @@ public class FormsOfPaymentData {
 
     // Поля формы "Рассрочка" (Installment plan)
 
-    private final String accountNumberHI = "//*[@class='pay-form opened']/div/input[@id='score-instalment']";
-    private final String sumIP = "//*[@class='pay-form opened']/div/input[@id='instalment-sum']";
-    private final String emailIP = "//*[@class='pay-form opened']/div/input[@id='instalment-email']";
+    private final String accountNumberIP = "//*[@id='score-instalment']";
+    private final String sumIP = "//*[@id='instalment-sum']";
+    private final String emailIP = "//*[@id='instalment-email']";
 
-    public String getAccountNumberHI() {
-        return accountNumberHI;
+    public String getAccountNumberIP() {
+        return accountNumberIP;
     }
 
     public String getSumIP() {
@@ -64,9 +62,9 @@ public class FormsOfPaymentData {
 
     // Поля формы "Задолженность" (Debt)
 
-    private final String accountNumberD = "//*[@class='pay-form opened']/div/input[@id='score-arrears']";
-    private final String sumD = "//*[@class='pay-form opened']/div/input[@id='arrears-sum']";
-    private final String emailD = "//*[@class='pay-form opened']/div/input[@id='arrears-email']";
+    private final String accountNumberD = "//*[@id='score-arrears']";
+    private final String sumD = "//*[@id='arrears-sum']";
+    private final String emailD = "//*[@id='arrears-email']";
 
     public String getAccountNumberD() {
         return accountNumberD;

@@ -18,7 +18,7 @@ public class TestBase {
     private WebDriver wd;
     private final String urlMTS = "https://www.mts.by/";
 
-    private final String onlineReplenishment = "//h2[contains(text(),'Онлайн пополнение')]";
+    private final String onlineReplenishment = "//section[@class='pay']//h2";
 
 
     public String getOnlineReplenishment() {
@@ -53,10 +53,10 @@ public class TestBase {
     }
 
     public void disableCookie() {
-        WebElement cookie = findElement(By.xpath("//h3[text()='Обработка файлов cookie']"));
+        WebElement cookie = findElement(By.xpath("//div[contains(@class, 'cookie__main')]/h3"));
 
         if (cookie.isDisplayed()) {
-            click(By.xpath("//button[contains(text(),'Отклонить')]"));
+            click(By.xpath("//button[contains(@class, 'cookie__cancel')]"));
         }
     }
 
@@ -84,17 +84,17 @@ public class TestBase {
     }
 
     public void selectTypeService(String service) {
-        WebElement dropdownValueElement = findElement(By.xpath("//div[@class='pay__form']//button[@class='select__header']/span[@class='select__now']"));
+        String listServices = "//button[@class='select__header']/span";
+        WebElement dropdownValueElement = findElement(By.xpath(listServices));
         String currentDropdownValue = dropdownValueElement.getText().trim();
 
         if (!currentDropdownValue.equals(service)) {
-            click(By.xpath("//div[@class='pay__form']//button[@class='select__header']"));
-
-            click(By.xpath("//div[@class='pay__form']//ul[@class='select__list']//p[text()='" + service + "']"));
+            click(By.xpath(listServices));
+            click(By.xpath("//ul[@class='select__list']//p[text()='" + service + "']"));
         }
     }
 
-    public void fillFieldsCommunicationService(PayData payData) {
+    public void fillCommunicationService(PayData payData) {
         selectTypeService(payData.getTypeService());
 
         type(By.id("connection-phone"), payData.getNumberPhone());
@@ -102,9 +102,10 @@ public class TestBase {
         type(By.id("connection-email"), payData.getEmail());
     }
 
-    public WebElement submitData(PayData payData) {
-        fillFieldsCommunicationService(payData);
-        click(By.xpath("//*[@id='pay-connection']/button"));
+    public WebElement submitForm(PayData payData) {
+        FormsOfPaymentData formsOfPaymentData = new FormsOfPaymentData();
+        String formName = payData.getFormName();
+        click(By.xpath(formsOfPaymentData.getButtonContinue(formName)));
 
         WebDriverWait wait = new WebDriverWait(wd, Duration.ofSeconds(5));
         try {
@@ -128,7 +129,8 @@ public class TestBase {
 
         FormsOfPaymentData formsOfPaymentData = new FormsOfPaymentData();
 
-        WebElement element = findElement(By.xpath(formsOfPaymentData.getButtonContinue()));
+        String formName = payData.getFormName();
+        WebElement element = findElement(By.xpath(formsOfPaymentData.getButtonContinue(formName)));
         boolean isClickable = element.isEnabled();
         Result result = new Result(formsOfPaymentData, isClickable);
         return result;
@@ -146,7 +148,8 @@ public class TestBase {
 
     public boolean isFormOpened(PayData payData) {
         try {
-            WebElement element = submitData(payData);
+            fillCommunicationService(payData);
+            WebElement element = submitForm(payData);
             return element != null && element.isDisplayed();
         } catch (Exception e) {
             System.out.println("Error opening form: " + e.getMessage());

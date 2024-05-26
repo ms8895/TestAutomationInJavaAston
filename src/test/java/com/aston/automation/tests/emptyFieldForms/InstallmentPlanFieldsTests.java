@@ -22,7 +22,7 @@ public class InstallmentPlanFieldsTests extends TestBase {
 
     @Test
     public void checkAccountNumberFieldTest() {
-        WebElement accountNumberField = findElement(By.xpath(result.formsOfPaymentData.getAccountNumberHI()));
+        WebElement accountNumberField = findElement(By.xpath(result.formsOfPaymentData.getAccountNumberIP()));
         String placeHolderAccountNumber = accountNumberField.getAttribute("placeholder").trim();
         assertEquals("Номер счета на 44", placeHolderAccountNumber);
     }

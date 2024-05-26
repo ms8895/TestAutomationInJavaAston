@@ -36,19 +36,19 @@ public class PayData {
         return email;
     }
 
-    public void setTypeService(String typeService) {
-        this.typeService = typeService;
-    }
-
-    public void setNumberPhone(String numberPhone) {
-        this.numberPhone = numberPhone;
-    }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public String getFormName() {
+        switch (typeService) {
+            case "Услуги связи":
+                return "pay-connection";
+            case "Домашний интернет":
+                return "pay-internet";
+            case "Рассрочка":
+                return "pay-instalment";
+            case "Задолженность":
+                return "pay-arrears";
+            default:
+                System.out.println("Неизвестная форма: " + typeService);
+                return "unknown";
+        }
     }
 }
