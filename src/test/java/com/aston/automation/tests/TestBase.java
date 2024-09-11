@@ -6,11 +6,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.remote.Browser;
 
 public class TestBase {
-    // Выбор браузера CHROME, FIREFOX, EDGE
-    protected static final ApplicationManager app = new ApplicationManager(Browser.CHROME);
+    protected static ApplicationManager app;
 
     @BeforeAll
     static void setupTest() {
+        // Выбор браузера CHROME, FIREFOX, EDGE
+        app = ApplicationManager.getInstance(Browser.CHROME);
         app.init();
     }
 

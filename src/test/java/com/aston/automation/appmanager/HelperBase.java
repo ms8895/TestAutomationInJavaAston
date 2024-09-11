@@ -16,8 +16,8 @@ public class HelperBase {
     protected Actions actions;
     protected Logger logger; // Добавляем переменную логгера
 
-    public HelperBase(WebDriver wd) {
-        this.wd = wd;
+    public HelperBase() {
+        this.wd = ApplicationManager.getInstance(null).getWebDriver();
         this.js = (JavascriptExecutor) wd;
         this.logger = LoggerFactory.getLogger(getClass()); // Инициализируем логгер для текущего класса
         this.actions = new Actions(wd);
@@ -69,7 +69,7 @@ public class HelperBase {
                     .ignoring(NoSuchElementException.class);
 
             wait.until(driver -> {
-                WebElement element = driver.findElement(locator);
+                WebElement element = wd.findElement(locator);
                 return element != null && element.isEnabled();
             });
             return true;

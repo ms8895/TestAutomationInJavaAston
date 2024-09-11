@@ -3,7 +3,6 @@ package com.aston.automation.appmanager;
 import com.aston.automation.model.ProductData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
@@ -23,8 +22,8 @@ public class MainPageHelper extends HelperBase {
 
     public List<ProductData> productData = new ArrayList<>();
 
-    public MainPageHelper(WebDriver wd) {
-        super(wd);
+    public MainPageHelper() {
+        super();
     }
 
     /**
@@ -35,11 +34,12 @@ public class MainPageHelper extends HelperBase {
     public void addProductFromPreview(int positionProduct) {
         openPreview(new ProductData(positionProduct), actions);
 
+        clickAddToBasketOnPreview();
+
         ProductData productData = getProductDetails();
         if (productData != null) {
             this.productData.add(productData);
         }
-        clickAddToBasketOnPreview();
 
         closePreview();
     }
@@ -93,12 +93,13 @@ public class MainPageHelper extends HelperBase {
                 String productNameToString = productNameElement.getText().trim();
                 WebElement productCostElement = wd.findElement(costProduct);
 
+                logger.info("Наименование товара с превью: " + productNameToString + "\n" + "Стоимость товара с превью: " + getPriceInt(productCostElement));
                 return new ProductData(productNameToString, getPriceInt(productCostElement));
             } else {
                 throw new NoSuchElementException("Элемент с наименованием товара не найден.");
             }
         } catch (NoSuchElementException e) {
-            logger.error("Произошла ошибка при получении данных о товаре: ", e);
+            logger.error("Ошибка при получении данных о товаре: ", e);
             return null;
         }
     }

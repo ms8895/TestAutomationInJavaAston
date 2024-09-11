@@ -22,8 +22,8 @@ public class BasketHelper extends HelperBase {
     By costProductInBasket = By.cssSelector(".list-item__price-new");
     By amountProductsOnBasket = By.cssSelector(".navbar-pc__notify");
 
-    public BasketHelper(WebDriver wd) {
-        super(wd);
+    public BasketHelper() {
+        super();
     }
 
     /**

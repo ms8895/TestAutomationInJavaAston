@@ -45,7 +45,6 @@ public class WBTests extends TestBase {
     @DisplayName("Пункт 2. Проверка количества товаров в корзине после добавления.")
     public void testQuantity() {
         app.goTo().basketPage();
-        System.out.println("Товары в itemsData перед сравнением " + app.main().productData);
         assertTrue(app.basket().compareQuantities(app.main().productData),
                 "Количество товаров при добавлении не совпадает с количеством на странице корзины.");
     }
@@ -55,7 +54,6 @@ public class WBTests extends TestBase {
     public void testTotalPrice() {
         List<ProductData> sortedProductsFromPreview = app.products().sortByNameAndPrice(app.main().productData);
         String totalPriceProductsFromPreview = app.products().totalPriceFromPreview(sortedProductsFromPreview);
-
         app.goTo().basketPage();
         String totalPriceInBasket = app.basket().totalPrice(2);
 

@@ -1,13 +1,8 @@
 package com.aston.automation.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 public class NavigationHelper extends HelperBase {
-    public NavigationHelper(WebDriver wd) {
-        super(wd);
-    }
-
     By headerForProductsOnBasket = By.xpath("//h1[@class='basket-section__header basket-section__header--main active']");
     By headerWithoutProductsOnBasket = By.xpath("//h1[@class='section-header basket-empty__title']");
     By orderProductsButton = By.name("ConfirmOrderByRegisteredUser");
@@ -18,6 +13,10 @@ public class NavigationHelper extends HelperBase {
     By signInButton = By.xpath("//*[@data-wba-header-name='Login']");
     By headerMainPageButton = By.cssSelector("a[data-wba-header-name=Main]");
 
+    public NavigationHelper() {
+        super();
+    }
+
     /**
      * Метод открывает корзину.
      *
@@ -27,13 +26,11 @@ public class NavigationHelper extends HelperBase {
 
         if ((isElementVisible(headerForProductsOnBasket, 1) && isElementPresent(orderProductsButton))
                 || (isElementVisible(headerWithoutProductsOnBasket, 1) && isElementVisible(mainPageAdditionalButton, 1))) {
-            logger.info("Корзина открыта.");
+            logger.info("Корзина уже открыта.");
             return true;
         } else {
-            logger.info("Корзина не открыта, нажать на кнопку корзины.");
             click(basketButton);
             return false;
-
         }
     }
 

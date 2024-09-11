@@ -1,14 +1,13 @@
 package com.aston.automation.appmanager;
 
 import com.aston.automation.model.ProductData;
-import org.openqa.selenium.WebDriver;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProductsHelper extends HelperBase {
-    public ProductsHelper(WebDriver wd) {
-        super(wd);
+    public ProductsHelper() {
+        super();
     }
 
     /**

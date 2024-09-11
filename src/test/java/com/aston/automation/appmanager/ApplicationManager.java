@@ -9,9 +9,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.Browser;
 
 public class ApplicationManager {
-    private Browser browser;
-    WebDriver wd;
-    JavascriptExecutor js;
+    private static ApplicationManager instance;
+    private static WebDriver wd;
+    private static JavascriptExecutor js;
+    private static Browser browser;
 
     private SessionHelper sessionHelper;
     private MainPageHelper mainPageHelper;
@@ -19,45 +20,66 @@ public class ApplicationManager {
     private ProductsHelper productsHelper;
     private NavigationHelper navigationHelper;
 
-    public ApplicationManager(Browser browser) {
+    private ApplicationManager(Browser browser) {
         this.browser = browser;
     }
 
-    public void init() {
-
-        switch (browser.browserName()) {
-            case "firefox":
-                WebDriverManager.firefoxdriver().setup();
-                wd = new FirefoxDriver();
-                break;
-            case "edge":
-                WebDriverManager.edgedriver().setup();
-                wd = new EdgeDriver();
-                break;
-            case "chrome":
-            default:
-                WebDriverManager.chromedriver().setup();
-                wd = new ChromeDriver();
-                break;
+    // Метод для получения единственного экземпляра ApplicationManager (с потокобезопасностью)
+    public static synchronized ApplicationManager getInstance(Browser browser) {
+        if (instance == null) {
+            instance = new ApplicationManager(browser);
         }
+        return instance;
+    }
 
-        //wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+    // Метод для получения драйвера
+    public static synchronized WebDriver getWebDriver() {
+        if (wd == null) {
+            switch (browser.browserName()) {
+                case "firefox":
+                    WebDriverManager.firefoxdriver().setup();
+                    wd = new FirefoxDriver();
+                    break;
+                case "edge":
+                    WebDriverManager.edgedriver().setup();
+                    wd = new EdgeDriver();
+                    break;
+                case "chrome":
+                default:
+                    WebDriverManager.chromedriver().setup();
+                    wd = new ChromeDriver();
+                    break;
+            }
+        }
+        return wd;
+    }
+
+
+    // Инициализация вспомогательных классов
+    public void init() {
+        wd = getWebDriver();
+
         wd.manage().window().maximize();
         js = (JavascriptExecutor) wd;
 
         wd.get("https://www.wildberries.ru/");
 
-        sessionHelper = new SessionHelper(wd);
-        mainPageHelper = new MainPageHelper(wd);
-        basketHelper = new BasketHelper(wd);
-        productsHelper = new ProductsHelper(wd);
-        navigationHelper = new NavigationHelper(wd);
+        sessionHelper = new SessionHelper();
+        mainPageHelper = new MainPageHelper();
+        basketHelper = new BasketHelper();
+        productsHelper = new ProductsHelper();
+        navigationHelper = new NavigationHelper();
 
         sessionHelper.disableCookies();
+
     }
 
+    // Метод для остановки драйвера и очистки ресурсов
     public void stop() {
-        wd.quit();
+        if (wd != null) {
+            wd.quit();
+            wd = null;
+        }
     }
 
     public MainPageHelper main() {
