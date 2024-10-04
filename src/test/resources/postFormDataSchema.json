@@ -1,0 +1,124 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Welcome1",
+    "definitions": {
+        "Welcome1": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "args": {
+                    "$ref": "#/definitions/Args"
+                },
+                "data": {
+                    "type": "string"
+                },
+                "files": {
+                    "$ref": "#/definitions/Args"
+                },
+                "form": {
+                    "$ref": "#/definitions/Form"
+                },
+                "headers": {
+                    "$ref": "#/definitions/Headers"
+                },
+                "json": {
+                    "$ref": "#/definitions/Form"
+                },
+                "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ]
+                }
+            },
+            "required": [
+                "args",
+                "data",
+                "files",
+                "form",
+                "headers",
+                "json",
+                "url"
+            ],
+            "title": "Welcome1"
+        },
+        "Args": {
+            "type": "object",
+            "additionalProperties": false,
+            "title": "Args"
+        },
+        "Form": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "foo1": {
+                    "type": "string"
+                },
+                "foo2": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "foo1",
+                "foo2"
+            ],
+            "title": "Form"
+        },
+        "Headers": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "host": {
+                    "type": "string"
+                },
+                "x-request-start": {
+                    "type": "string"
+                },
+                "connection": {
+                    "type": "string"
+                },
+                "content-length": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "x-forwarded-proto": {
+                    "type": "string"
+                },
+                "x-forwarded-port": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "x-amzn-trace-id": {
+                    "type": "string"
+                },
+                "accept": {
+                    "type": "string"
+                },
+                "content-type": {
+                    "type": "string"
+                },
+                "user-agent": {
+                    "type": "string"
+                },
+                "accept-encoding": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "accept",
+                "accept-encoding",
+                "connection",
+                "content-length",
+                "content-type",
+                "host",
+                "user-agent",
+                "x-amzn-trace-id",
+                "x-forwarded-port",
+                "x-forwarded-proto",
+                "x-request-start"
+            ],
+            "title": "Headers"
+        }
+    }
+}

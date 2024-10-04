@@ -8,7 +8,7 @@ import static org.hamcrest.Matchers.*;
 import static org.hamcrest.text.IsEmptyString.isEmptyOrNullString;
 
 public class ApiTests {
-    String baseUri = "https://postman-echo.com";
+    private static final String baseUri = "https://postman-echo.com";
 
 
     @Test
@@ -21,7 +21,7 @@ public class ApiTests {
                 .body("args", anEmptyMap())
 
                 .body("headers.host", equalTo("postman-echo.com"))
-                .body("headers.x-forwarded-proto", equalTo("http"))
+                .body("headers.x-forwarded-proto", equalTo("https"))
                 .body("headers.x-request-start", containsString("t="))
                 .body("headers.connection", equalTo("close"))
                 .body("headers.x-forwarded-port", equalTo("443"))
@@ -30,7 +30,7 @@ public class ApiTests {
                 .body("headers.user-agent", equalTo("Apache-HttpClient/4.5.13 (Java/11.0.19)"))
                 .body("headers.accept-encoding", equalTo("gzip,deflate"))
 
-                .body("url", equalTo("http://postman-echo.com/get"));
+                .body("url", equalTo("https://postman-echo.com/get"));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class ApiTests {
                 .body("form", anEmptyMap())
 
                 .body("headers.host", equalTo("postman-echo.com"))
-                .body("headers.x-forwarded-proto", equalTo("http"))
+                .body("headers.x-forwarded-proto", equalTo("https"))
                 .body("headers.x-request-start", containsString("t="))
                 .body("headers.connection", equalTo("close"))
                 .body("headers.content-length", notNullValue())
@@ -62,7 +62,7 @@ public class ApiTests {
                 .body("headers.accept-encoding", equalTo("gzip,deflate"))
 
                 .body("json", nullValue())
-                .body("url", equalTo("http://postman-echo.com/post"));
+                .body("url", equalTo("https://postman-echo.com/post"));
     }
 
     @Test
@@ -86,7 +86,7 @@ public class ApiTests {
                 .body("form." + foo2Key, equalTo(foo2Value))
 
                 .body("headers.host", equalTo("postman-echo.com"))
-                .body("headers.x-forwarded-proto", equalTo("http"))
+                .body("headers.x-forwarded-proto", equalTo("https"))
                 .body("headers.x-request-start", containsString("t="))
                 .body("headers.connection", equalTo("close"))
                 .body("headers.content-length", notNullValue())
@@ -99,7 +99,7 @@ public class ApiTests {
 
                 .body("json." + foo1Key, equalTo(foo1Value))
                 .body("json." + foo2Key, equalTo(foo2Value))
-                .body("url", equalTo("http://postman-echo.com/post"));
+                .body("url", equalTo("https://postman-echo.com/post"));
     }
 
     @Test
@@ -118,7 +118,7 @@ public class ApiTests {
                 .body("form", anEmptyMap())
 
                 .body("headers.host", equalTo("postman-echo.com"))
-                .body("headers.x-forwarded-proto", equalTo("http"))
+                .body("headers.x-forwarded-proto", equalTo("https"))
                 .body("headers.x-request-start", containsString("t="))
                 .body("headers.connection", equalTo("close"))
                 .body("headers.content-length", notNullValue())
@@ -130,7 +130,7 @@ public class ApiTests {
                 .body("headers.accept-encoding", equalTo("gzip,deflate"))
 
                 .body("json", nullValue())
-                .body("url", equalTo("http://postman-echo.com/put"));
+                .body("url", equalTo("https://postman-echo.com/put"));
     }
 
     @Test
@@ -149,7 +149,7 @@ public class ApiTests {
                 .body("form", anEmptyMap())
 
                 .body("headers.host", equalTo("postman-echo.com"))
-                .body("headers.x-forwarded-proto", equalTo("http"))
+                .body("headers.x-forwarded-proto", equalTo("https"))
                 .body("headers.x-request-start", containsString("t="))
                 .body("headers.connection", equalTo("close"))
                 .body("headers.content-length", notNullValue())
@@ -161,7 +161,7 @@ public class ApiTests {
                 .body("headers.accept-encoding", equalTo("gzip,deflate"))
 
                 .body("json", nullValue())
-                .body("url", equalTo("http://postman-echo.com/patch"));
+                .body("url", equalTo("https://postman-echo.com/patch"));
     }
 
     @Test
@@ -180,7 +180,7 @@ public class ApiTests {
                 .body("form", anEmptyMap())
 
                 .body("headers.host", equalTo("postman-echo.com"))
-                .body("headers.x-forwarded-proto", equalTo("http"))
+                .body("headers.x-forwarded-proto", equalTo("https"))
                 .body("headers.x-request-start", containsString("t="))
                 .body("headers.connection", equalTo("close"))
                 .body("headers.content-length", notNullValue())
@@ -192,7 +192,7 @@ public class ApiTests {
                 .body("headers.accept-encoding", equalTo("gzip,deflate"))
 
                 .body("json", nullValue())
-                .body("url", equalTo("http://postman-echo.com/delete"));
+                .body("url", equalTo("https://postman-echo.com/delete"));
     }
 }
 

@@ -1,0 +1,107 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Welcome4",
+    "definitions": {
+        "Welcome4": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "args": {
+                    "$ref": "#/definitions/Args"
+                },
+                "data": {
+                    "type": "string"
+                },
+                "files": {
+                    "$ref": "#/definitions/Args"
+                },
+                "form": {
+                    "$ref": "#/definitions/Args"
+                },
+                "headers": {
+                    "$ref": "#/definitions/Headers"
+                },
+                "json": {
+                    "type": "null"
+                },
+                "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ]
+                }
+            },
+            "required": [
+                "args",
+                "data",
+                "files",
+                "form",
+                "headers",
+                "json",
+                "url"
+            ],
+            "title": "Welcome4"
+        },
+        "Args": {
+            "type": "object",
+            "additionalProperties": false,
+            "title": "Args"
+        },
+        "Headers": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "host": {
+                    "type": "string"
+                },
+                "x-request-start": {
+                    "type": "string"
+                },
+                "connection": {
+                    "type": "string"
+                },
+                "content-length": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "x-forwarded-proto": {
+                    "type": "string"
+                },
+                "x-forwarded-port": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "x-amzn-trace-id": {
+                    "type": "string"
+                },
+                "accept": {
+                    "type": "string"
+                },
+                "content-type": {
+                    "type": "string"
+                },
+                "user-agent": {
+                    "type": "string"
+                },
+                "accept-encoding": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "accept",
+                "accept-encoding",
+                "connection",
+                "content-length",
+                "content-type",
+                "host",
+                "user-agent",
+                "x-amzn-trace-id",
+                "x-forwarded-port",
+                "x-forwarded-proto",
+                "x-request-start"
+            ],
+            "title": "Headers"
+        }
+    }
+}
